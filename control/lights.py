@@ -2,7 +2,7 @@ import os, os.path
 
 import cherrypy
 import pygatt
-
+import requests
 
 def control_light(address, action):
     magic_handle =  0x0043
@@ -20,6 +20,16 @@ def control_light(address, action):
     finally:
         adapter.stop()
 
+def control_lock(address, action):
+    if action == "Open":
+        para = "on"
+    elif action == "Closed":
+        para = "off"
+    else:
+        para = off
+    uri = "http://" + address + ".lan/cgi-bin/json.cgi?set=" + para
+    r = requests.get(uri)
+    return r.status_code
 
 class Control(object):
     @cherrypy.expose
@@ -33,10 +43,15 @@ class Control(object):
 class ControlLightWebService(object):
     @cherrypy.tools.accept(media='text/plain')
     def PUT(self, action, address):
-#        print("Light", action, address)
         control_light(address, action)
         return "Ok"
 
+@cherrypy.expose
+class ControlLockWebService(object):
+    @cherrypy.tools.accept(media='text/plain')
+    def PUT(self, action, address):
+        control_lock(address, action)
+        return "Ok"
 
 if __name__ == '__main__':
     conf = {
@@ -54,6 +69,11 @@ if __name__ == '__main__':
             'tools.response_headers.on': True,
             'tools.response_headers.headers': [('Content-Type', 'text/plain')],
         },
+        '/lock': {
+            'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
+            'tools.response_headers.on': True,
+            'tools.response_headers.headers': [('Content-Type', 'text/plain')],
+        },
         '/css': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': './css'
@@ -61,5 +81,6 @@ if __name__ == '__main__':
     }
     webapp = Control()
     webapp.light = ControlLightWebService()
+    webapp.lock  = ControlLockWebService()
     cherrypy.quickstart(webapp, '/', conf)
 

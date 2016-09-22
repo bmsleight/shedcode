@@ -37,6 +37,11 @@ $(document).ready( function() {
       $.each( data.lightActions, function( d, jbo ) {
           $('#lights-all').append("<button class='btn btn-lg btn-default' type='button' data-action='"+jbo+"' data--light='all'>All Lights "+jbo+"</button>");
          });
+      $.each(data.locks, function( i, obj ) {
+          $.each( data.lockActions, function( d, jbo ) {
+              $('#locks').append("<button class='btn btn-lg btn-default' type='button' data-action='"+jbo+"' data-lock='"+obj.DisplayName+"' data-address='"+obj.address+"' data-quick='"+obj.quick+"'>"+obj.DisplayName+" "+jbo+"</button>");
+             });
+         });
     });
 
 function allLightsAction(action) {
@@ -67,7 +72,31 @@ function lightsAction(displayName, action, address) {
             type: "PUT",
             url: "/light",
             data: {"action": action, "address": address}
-          })
+          });
+}
+
+function locksActionDetail(displayName, action, address, timeout) {
+    setTimeout(function(){
+        addComments('Running ... ' + displayName + ' ' + action + ' at address ' + address);
+        $.ajax({
+            type: "PUT",
+            url: "/lock",
+            data: {"action": action, "address": address}
+          });
+        }, timeout * 1000);
+}
+
+function locksAction(displayName, action, address, quick) {
+    var ba = $("#locks :button");
+    var lastAction = $(ba[ba.length-1]).attr("data-action")
+    if (action === lastAction) {
+        // If the last action on the list (aka Quick Open) toggle through the other actions but not the last
+        for (var i = 0; i < 2; i++) {
+            locksActionDetail(displayName, $(ba[i]).attr("data-action"), address, parseInt(quick)*i);
+        }
+    } else {
+        locksActionDetail(displayName, action, address, 0);
+    }
 }
 
 
@@ -78,6 +107,10 @@ $('#lights').on('click','button', function (evt) {
 
 $('#lights-all').on('click','button', function (evt) {
   allLightsAction($(this).data('action'));
+});
+
+$('#locks').on('click','button', function (evt) {
+    locksAction($(this).data('lock'), $(this).data('action'), $(this).data('address'), $(this).data('quick'));
 });
 
 
@@ -97,20 +130,16 @@ $('#lights-all').on('click','button', function (evt) {
       </div>
       <p class="lead"></p>
       <div id="lights"></div>
-      <div id="lights-all">
-      </div>
+      <div id="lights-all"></div>
+      <div id="locks"></div>
+      <h3>Log</h2>
       <p id="comments"></p>
     </div>
-
-
-
-
     <footer class="footer">
       <div class="container">
         <p class="text-muted">Control Man Cave</p>
       </div>
     </footer>
-
 </body>
 
 </html>

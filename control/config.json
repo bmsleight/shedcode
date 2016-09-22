@@ -1,4 +1,5 @@
 {
+  "lightActions": ["On","Off"],
   "lights": [
     {
       "DisplayName": "Main Light",
@@ -9,16 +10,12 @@
       "address": "E0:E5:CF:AD:71:A0"
     }
   ],
-  "lightActions": ["On","Off"],
-  "lock": [
+  "lockActions": ["Open","Closed", "Quick Open"],
+  "locks": [
     {
       "DisplayName": "Front Door",
-      "address": "http://plugc.lan/cgi-bin/json.cgi?set=",
-      "duration": 120
-    },
-    {
-      "DisplayName": "Other Light",
-      "address": "E0:E5:CF:AD:71:A0"
+      "address": "plugc",
+      "quick": "12"
     }
   ]
 }
