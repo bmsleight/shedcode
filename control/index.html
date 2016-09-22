@@ -30,8 +30,12 @@ $(document).ready( function() {
     .ajax( { url: 'config', dataType: 'json' } )
     .always( function( data ) {
       $.each( data.lights, function( i, obj ) {
-         $('#lights').append("<button class='btn btn-lg btn-default' type='button' data-action='on' data-light='"+obj.DisplayName+"' data-address='"+obj.address+"'>"+obj.DisplayName+" On</button>");
-         $('#lights').append("<button class='btn btn-lg btn-default' type='button' data-action='off' data-light='"+obj.DisplayName+"' data-address='"+obj.address+"'>"+obj.DisplayName+" Off</button>");
+          $.each( data.lightActions, function( d, jbo ) {
+              $('#lights').append("<button class='btn btn-lg btn-default' type='button' data-action='"+jbo+"' data-light='"+obj.DisplayName+"' data-address='"+obj.address+"'>"+obj.DisplayName+" "+jbo+"</button>");
+             });
+         });
+      $.each( data.lightActions, function( d, jbo ) {
+          $('#lights-all').append("<button class='btn btn-lg btn-default' type='button' data-action='"+jbo+"' data--light='all'>All Lights "+jbo+"</button>");
          });
     });
 
@@ -41,7 +45,10 @@ function allLightsAction(action) {
     .ajax( { url: 'config', dataType: 'json' } )
     .always( function( data ) {
       $.each( data.lights, function( i, obj ) {
-        lightsAction(obj.DisplayName, action, obj.address);
+        // Take tiem between each bluetooth command
+        setTimeout(function(){
+          lightsAction(obj.DisplayName, action, obj.address);
+          }, i * 2000);
          });
     });
 }
@@ -91,8 +98,6 @@ $('#lights-all').on('click','button', function (evt) {
       <p class="lead"></p>
       <div id="lights"></div>
       <div id="lights-all">
-        <button class="btn btn-lg btn-default" type="button" data-action="on" data-light="all" >All Lights On</button>
-        <button class="btn btn-lg btn-default" type="button" data-action="off" data-light="all" >All Lights Off</button>
       </div>
       <p id="comments"></p>
     </div>

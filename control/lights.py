@@ -10,9 +10,9 @@ def control_light(address, action):
     try:
         adapter.start()
         device = adapter.connect(address)
-        if action == "on":
+        if action == "On":
             magic_bytes = bytearray([0xcc, 0x23, 0x33])
-        elif action == "off":
+        elif action == "Off":
             magic_bytes = bytearray([0xcc, 0x24, 0x33])
         else:
             magic_bytes = bytearray([0xcc, 0x23, 0x33])
