@@ -38,6 +38,10 @@ class Control(object):
     @cherrypy.expose
     def config(self):
         return open('config.json')
+    @cherrypy.expose
+    def slight(self, address, action):
+        control_light(address, action)
+        return "Ok"
 
 @cherrypy.expose
 class ControlLightWebService(object):
@@ -45,6 +49,8 @@ class ControlLightWebService(object):
     def PUT(self, action, address):
         control_light(address, action)
         return "Ok"
+    # Easy for esp8266
+
 
 @cherrypy.expose
 class ControlLockWebService(object):
