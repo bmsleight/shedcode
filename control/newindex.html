@@ -25,6 +25,8 @@
 <script type='text/javascript'>//<![CDATA[
 
 $(document).ready( function() {
+  var groupButtons = [];
+  var groupButtonsUnique = [];
   // get the list of device and add button for each action of a device
   var lightsJSON = $
     .ajax( { url: 'config', dataType: 'json' } )
@@ -32,10 +34,27 @@ $(document).ready( function() {
       $.each( data.device, function( i, obj ) {
           $.each( obj['action'], function( d, jbo ) {
               $('#devices').append("<button class='btn btn-lg btn-default' type='button' data-action='"+jbo['name']+"' data-device='"+obj['name']+"'>"+obj['name']+" "+jbo['name']+"</button>");
+              groupButtons.push({group:obj['group'], action:jbo['name']}); 
              });
           $('#devices').append("<button class='btn btn-lg btn-default' type='button' data-action='Toggle' data-device='"+obj['name']+"'>"+obj['name']+" Toggle</button>");
           $('#devices').append("<br/>");
       });
+      // Make a unique list of Main Group Buttons
+      for (var i = 0; i < groupButtons.length; i++) {
+          var flag = false;
+          for (var j = 0; j < groupButtonsUnique.length; j++) {
+              if ( (groupButtons[i].group == groupButtonsUnique[j].group) && (groupButtons[i].action == groupButtonsUnique[j].action) ) {
+                  flag = true;
+              }
+          }
+          if (flag == false) {
+              groupButtonsUnique.push(groupButtons[i]);
+          }  
+      }
+      for (var j = 0; j < groupButtonsUnique.length; j++) {
+          $('#groups').append("<button class='btn btn-lg btn-default' type='button' data-action='"+groupButtonsUnique[j].action+"' data-device='"+groupButtonsUnique[j].group+"'>All "+groupButtonsUnique[j].group+" "+groupButtonsUnique[j].action+"</button>");
+          $('#groups').append("<br/>");
+      }
     });
 
 function addComments(html)  {
@@ -45,17 +64,30 @@ function addComments(html)  {
     document.getElementById("comments").appendChild(node);
 }
 
-function devicesAction(displayName, action) {
+function putAction(displayName, action, url) {
     addComments('Running ... ' + displayName + ' ' + action );
     $.ajax({
             type: "PUT",
-            url: "/device",
+            url: url,
             data: {"name": displayName, "action": action}
           });
 }
 
+function groupsAction(displayName, action) {
+    putAction(displayName, action, "/group");
+}
+
+function devicesAction(displayName, action) {
+    putAction(displayName, action, "/device");
+}
+
+
 $('#devices').on('click','button', function (evt) {
     devicesAction($(this).data('device'), $(this).data('action'));
+});
+
+$('#groups').on('click','button', function (evt) {
+    groupsAction($(this).data('device'), $(this).data('action'));
 });
 
 
@@ -75,6 +107,7 @@ $('#devices').on('click','button', function (evt) {
       </div>
       <p class="lead"></p>
       <div id="devices"></div>
+      <div id="groups"></div>
       <h3>Log</h2>
       <p id="comments"></p>
     </div>

@@ -14,7 +14,8 @@
             "path": "0x0043",
             "domain": "E0:E5:CF:AD:71:A0",
             "protocol": "bluetooth",
-            "name": "Main Light"
+            "name": "Main Light",
+            "group": "Lights"
         },
         {
             "action": [
@@ -30,7 +31,8 @@
             "path": "0x0043",
             "domain": "E0:E5:CF:AD:71:A0",
             "protocol": "bluetooth",
-            "name": "Other Light"
+            "name": "Other Light",
+            "group": "Lights"
         },
         {
             "action": [
@@ -46,7 +48,8 @@
             "path": "/cgi-bin/json.cgi",
             "domain": "plugc.lan",
             "protocol": "http",
-            "name": "Door Lock"
+            "name": "Door Lock",
+            "group": "Locks"
         }
     ]
 }

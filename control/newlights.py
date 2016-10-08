@@ -61,6 +61,12 @@ def device_action(name, action):
                         toggle += 1
     return rcode
 
+def group_action(name, action):
+    for device in devices['device']:
+        if device['group'] == name:
+            device_action(device['name'], action)
+    return "{\"group\":ok}"
+
 class Control(object):
     @cherrypy.expose
     def index(self):
@@ -68,11 +74,16 @@ class Control(object):
     @cherrypy.expose
     def config(self):
         return open('devices.json')
+
+    # Allows a simple get 
+    # curl "http://blueberrypi.lan/deviceg?name=Main%20Light&action=Toggle"
     @cherrypy.expose
     def deviceg(self, name, action):
-        # Allows a simple get 
-        # curl "http://blueberrypi.lan/deviceg?name=Main%20Light&action=Toggle"
         rcode = device_action(name, action)
+        return rcode
+    @cherrypy.expose
+    def groupg(self, name, action):
+        rcode = group_action(name, action)
         return rcode
 
 @cherrypy.expose
@@ -80,6 +91,13 @@ class ControlDeviceWebService(object):
     @cherrypy.tools.accept(media='text/plain')
     def PUT(self, name, action):
         rcode = device_action(name, action)
+        return rcode
+
+@cherrypy.expose
+class ControlGroupWebService(object):
+    @cherrypy.tools.accept(media='text/plain')
+    def PUT(self, name, action):
+        rcode = group_action(name, action)
         return rcode
 
 if __name__ == '__main__':
@@ -98,6 +116,11 @@ if __name__ == '__main__':
             'tools.response_headers.on': True,
             'tools.response_headers.headers': [('Content-Type', 'text/plain')],
         },
+        '/group': {
+            'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
+            'tools.response_headers.on': True,
+            'tools.response_headers.headers': [('Content-Type', 'text/plain')],
+        },
         '/css': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': './css'
@@ -112,5 +135,6 @@ if __name__ == '__main__':
 
     webapp = Control()
     webapp.device = ControlDeviceWebService()
+    webapp.group = ControlGroupWebService()
     cherrypy.quickstart(webapp, '/', conf)
 
