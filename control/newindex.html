@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+  <title>Blueberry Pi</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/sticky-footer.css" rel="stylesheet">
+
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <link href="./css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+<script type='text/javascript'>//<![CDATA[
+
+$(document).ready( function() {
+  // get the list of device and add button for each action of a device
+  var lightsJSON = $
+    .ajax( { url: 'config', dataType: 'json' } )
+    .always( function( data ) {
+      $.each( data.device, function( i, obj ) {
+          $.each( obj['action'], function( d, jbo ) {
+              $('#devices').append("<button class='btn btn-lg btn-default' type='button' data-action='"+jbo['name']+"' data-device='"+obj['name']+"'>"+obj['name']+" "+jbo['name']+"</button>");
+             });
+          $('#devices').append("<button class='btn btn-lg btn-default' type='button' data-action='Toggle' data-device='"+obj['name']+"'>"+obj['name']+" Toggle</button>");
+          $('#devices').append("<br/>");
+      });
+    });
+
+function addComments(html)  {
+    var node = document.createElement("p");
+    var textnode = document.createTextNode(html);
+    node.appendChild(textnode);
+    document.getElementById("comments").appendChild(node);
+}
+
+function devicesAction(displayName, action) {
+    addComments('Running ... ' + displayName + ' ' + action );
+    $.ajax({
+            type: "PUT",
+            url: "/device",
+            data: {"name": displayName, "action": action}
+          });
+}
+
+$('#devices').on('click','button', function (evt) {
+    devicesAction($(this).data('device'), $(this).data('action'));
+});
+
+
+});
+
+
+//]]> 
+
+</script>
+
+</head>
+
+<body>
+    <div class="container">
+      <div class="page-header">
+        <h1>Take Control</h1>
+      </div>
+      <p class="lead"></p>
+      <div id="devices"></div>
+      <h3>Log</h2>
+      <p id="comments"></p>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Control Man Cave</p>
+      </div>
+    </footer>
+</body>
+
+</html>
+
+

@@ -1,0 +1,52 @@
+{
+    "device": [
+        {
+            "action": [
+                {
+                    "name": "On",
+                    "parameters": "0xcc, 0x23, 0x33"
+                },
+                {
+                    "name": "Off",
+                    "parameters": "0xcc, 0x24, 0x33"
+                }
+            ],
+            "path": "0x0043",
+            "domain": "E0:E5:CF:AD:71:A0",
+            "protocol": "bluetooth",
+            "name": "Main Light"
+        },
+        {
+            "action": [
+                {
+                    "name": "On",
+                    "parameters": "0xcc, 0x23, 0x33"
+                },
+                {
+                    "name": "Off",
+                    "parameters": "0xcc, 0x24, 0x33"
+                }
+            ],
+            "path": "0x0043",
+            "domain": "E0:E5:CF:AD:71:A0",
+            "protocol": "bluetooth",
+            "name": "Other Light"
+        },
+        {
+            "action": [
+                {
+                    "name": "Off",
+                    "parameters": "?set=off"
+                },
+                {
+                    "name": "On",
+                    "parameters": "?set=on"
+                }
+            ],
+            "path": "/cgi-bin/json.cgi",
+            "domain": "plugc.lan",
+            "protocol": "http",
+            "name": "Door Lock"
+        }
+    ]
+}
