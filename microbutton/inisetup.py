@@ -44,6 +44,7 @@ def setup():
 import machine
 import network
 import socket
+import time
 
 import config_mc
 
@@ -64,22 +65,35 @@ def http_get(url):
     s.connect(addr)
     s.send(bytes('GET /%s HTTP/1.0\\r\\nHost: %s\\r\\n\\r\\n' % (path, host), 'utf8'))
     while True:
-        data = s.recv(100)
+        data = s.recv(2048)
         if data:
             print(str(data, 'utf8'), end='')
         else:
             break
 
-# LED ON to give visual feedback
-led = machine.PWM(machine.Pin(2), freq=1000)
-do_connect(config_mc.ssid, config_mc.passwd)
-if machine.reset_cause() == machine.DEEPSLEEP_RESET:
-    print('woke from a deep sleep')
-    http_get(config_mc.resetURL)
-else:
-    print('power on or hard reset')
-    http_get(config_mc.powerOnURL)
+def flash_led(led, num):
+    for l in range(num):
+         time.sleep_ms(500)
+         led.value(not led.value())
+    time.sleep_ms(1500)
 
+# LED ON to give visual feedback
+led = machine.Pin(2, machine.Pin.OUT)
+led.value(0)
+try:
+    do_connect(config_mc.ssid, config_mc.passwd)
+except:
+    flash_led(led, 8)
+try:
+    if machine.reset_cause() == machine.DEEPSLEEP_RESET:
+        print('woke from a deep sleep')
+        http_get(config_mc.resetURL)
+    else:
+        print('power on or hard reset')
+        http_get(config_mc.powerOnURL)
+except:
+    flash_led(led, 4)
+led.value(1)
 machine.deepsleep()
 """)
     return vfs
