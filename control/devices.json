@@ -12,7 +12,7 @@
                 }
             ],
             "path": "0x0043",
-            "domain": "E0:E5:CF:AD:71:A0",
+            "domain": "E0:E5:CF:AD:66:1C",
             "protocol": "bluetooth",
             "name": "Main Light",
             "group": "Lights"
@@ -29,7 +29,7 @@
                 }
             ],
             "path": "0x0043",
-            "domain": "E0:E5:CF:AD:71:A0",
+            "domain": "E0:E5:CF:AD:66:1C",
             "protocol": "bluetooth",
             "name": "Other Light",
             "group": "Lights"
