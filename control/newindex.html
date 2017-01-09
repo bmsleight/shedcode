@@ -33,7 +33,7 @@ $(document).ready( function() {
     .always( function( data ) {
       $.each( data.device, function( i, obj ) {
           $.each( obj['action'], function( d, jbo ) {
-              $('#devices').append("<button class='btn btn-lg btn-default' type='button' data-action='"+jbo['name']+"' data-device='"+obj['name']+"'>"+obj['name']+" "+jbo['name']+"</button>");
+              $('#devices').append("<button class='btn btn-lg btn-default' type='button' data-action='"+jbo['name']+"' data-device='"+obj['name']+"'>"+obj['name']+" "+obj['group']+" "+jbo['name']+"</button>");
               groupButtons.push({group:obj['group'], action:jbo['name']}); 
              });
           $('#devices').append("<button class='btn btn-lg btn-default' type='button' data-action='Toggle' data-device='"+obj['name']+"'>"+obj['name']+" Toggle</button>");
@@ -52,7 +52,7 @@ $(document).ready( function() {
           }  
       }
       for (var j = 0; j < groupButtonsUnique.length; j++) {
-          $('#groups').append("<button class='btn btn-lg btn-default' type='button' data-action='"+groupButtonsUnique[j].action+"' data-device='"+groupButtonsUnique[j].group+"'>All "+groupButtonsUnique[j].group+" "+groupButtonsUnique[j].action+"</button>");
+          $('#groups').append("<button class='btn btn-lg btn-default' type='button' data-action='"+groupButtonsUnique[j].action+"' data-device='"+groupButtonsUnique[j].group+"'>All "+groupButtonsUnique[j].group+"s "+groupButtonsUnique[j].action+"</button>");
           $('#groups').append("<br/>");
       }
     });

@@ -14,8 +14,8 @@
             "path": "0x0043",
             "domain": "E0:E5:CF:AD:71:A0",
             "protocol": "bluetooth",
-            "name": "Main Light",
-            "group": "Lights"
+            "name": "Main",
+            "group": "Light"
         },
         {
             "action": [
@@ -31,8 +31,8 @@
             "path": "0x0043",
             "domain": "E0:E5:CF:AD:C3:C7",
             "protocol": "bluetooth",
-            "name": "Door Light",
-            "group": "Lights"
+            "name": "Door",
+            "group": "Light"
         },
         {
             "action": [
@@ -48,8 +48,8 @@
             "path": "0x0043",
             "domain": "E0:E5:CF:AD:66:1C",
             "protocol": "bluetooth",
-            "name": "Desk Lamp",
-            "group": "Lights"
+            "name": "Desk",
+            "group": "Light"
         },
         {
             "action": [
@@ -65,8 +65,8 @@
             "path": "/cgi-bin/json.cgi",
             "domain": "heater.lan",
             "protocol": "http",
-            "name": "Heater (mini)",
-            "group": "Heaters"
+            "name": "Mini",
+            "group": "Heater"
         }
     ]
 }
