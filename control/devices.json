@@ -29,9 +29,26 @@
                 }
             ],
             "path": "0x0043",
-            "domain": "E0:E5:CF:AD:66:1C",
+            "domain": "E0:E5:CF:AD:C3:C7",
             "protocol": "bluetooth",
             "name": "Door Light",
+            "group": "Lights"
+        },
+        {
+            "action": [
+                {
+                    "name": "On",
+                    "parameters": "0xcc, 0x23, 0x33"
+                },
+                {
+                    "name": "Off",
+                    "parameters": "0xcc, 0x24, 0x33"
+                }
+            ],
+            "path": "0x0043",
+            "domain": "E0:E5:CF:AD:66:1C",
+            "protocol": "bluetooth",
+            "name": "Desk Lamp",
             "group": "Lights"
         },
         {
@@ -46,10 +63,10 @@
                 }
             ],
             "path": "/cgi-bin/json.cgi",
-            "domain": "plugc.lan",
+            "domain": "heater.lan",
             "protocol": "http",
-            "name": "Door Lock",
-            "group": "Locks"
+            "name": "Heater (mini)",
+            "group": "Heaters"
         }
     ]
 }
