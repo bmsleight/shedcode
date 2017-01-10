@@ -1,0 +1,37 @@
+{
+  "intents": [
+    {
+      "intent": "ControlShedDeviceIntent",
+      "slots": [
+        {
+          "name": "Device",
+          "type": "LIST_OF_DEVICES"
+        },
+        {
+          "name": "Group",
+          "type": "LIST_OF_GROUPS"
+        },
+        {
+          "name": "Action",
+          "type": "LIST_OF_ACTIONS"
+        }
+      ]
+    },
+    {
+      "intent": "ControlShedGroupIntent",
+      "slots": [
+        {
+          "name": "Group",
+          "type": "LIST_OF_GROUPS"
+        },
+        {
+          "name": "Action",
+          "type": "LIST_OF_ACTIONS"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    }
+  ]
+}

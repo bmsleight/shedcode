@@ -1,0 +1,3 @@
+ControlShedGroupIntent all {Group} {Action}
+ControlShedDeviceIntent {Device} {Group} {Action}
+

@@ -1,0 +1,5 @@
+# https://github.com/alexa/alexa-avs-sample-app/wiki/Raspberry-Pi
+# Go to https://snowboy.kitt.ai/dashboard "SC" - Speak "Shed Computer" 
+cp /tmp/sc.pmdl /home/pi/Desktop/alexa-avs-sample-app/samples/wakeWordAgent/ext/resources/alexa.umdl
+cd /home/pi/Desktop/alexa-avs-sample-app/samples/wakeWordAgent/src/ && make clean && cmake . && make -j4 ;  cd /home/pi/Desktop/alexa-avs-sample-app/samples/wakeWordAgent/tst && make clean && cmake . && make
+
