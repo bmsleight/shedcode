@@ -9,6 +9,14 @@
                 {
                     "name": "Off",
                     "parameters": "0xcc, 0x24, 0x33"
+                },
+                {
+                    "name": "Bright",
+                    "parameters": "0x56, 0x00, 0x00, 0x00, 0xff, 0x0f, 0xaa"
+                },
+                {
+                    "name": "Dim",
+                    "parameters": "0x56, 0x00, 0x00, 0x00, 0x40, 0x0f, 0xaa"
                 }
             ],
             "path": "0x0043",
@@ -26,6 +34,14 @@
                 {
                     "name": "Off",
                     "parameters": "0xcc, 0x24, 0x33"
+                },
+                {
+                    "name": "Bright",
+                    "parameters": "0x56, 0x00, 0x00, 0x00, 0xff, 0x0f, 0xaa"
+                },
+                {
+                    "name": "Dim",
+                    "parameters": "0x56, 0x00, 0x00, 0x00, 0x40, 0x0f, 0xaa"
                 }
             ],
             "path": "0x0043",
@@ -43,6 +59,14 @@
                 {
                     "name": "Off",
                     "parameters": "0xcc, 0x24, 0x33"
+                },
+                {
+                    "name": "Bright",
+                    "parameters": "0x56, 0x00, 0x00, 0x00, 0xff, 0x0f, 0xaa"
+                },
+                {
+                    "name": "Dim",
+                    "parameters": "0x56, 0x00, 0x00, 0x00, 0x40, 0x0f, 0xaa"
                 }
             ],
             "path": "0x0043",
