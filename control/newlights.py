@@ -55,8 +55,9 @@ def device_action(name, action):
                 for a in device['action']:
                     if a['name'] == action:
                         # Update toggle on the new action
-                        toggles[device['name']] = toggle
                         rcode = do_device_action(device['protocol'], device['domain'], device['path'], a['parameters'])
+                        if rcode != "{\"device\":false}":
+                            toggles[device['name']] = toggle
                     else:
                         toggle += 1
     return rcode
