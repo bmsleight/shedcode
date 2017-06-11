@@ -85,6 +85,12 @@ class Control(object):
     def groupg(self, name, action):
         rcode = group_action(name, action)
         return rcode
+    @cherrypy.expose
+    def state(self, name):
+        toggle = toggles[device['name']]
+        state = device['action'][toggle]['name']
+        rcode = "{\"state\":\"" + str(state) + "\"}"
+        return rcode
 
 @cherrypy.expose
 class ControlDeviceWebService(object):

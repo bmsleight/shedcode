@@ -1,0 +1,43 @@
+{
+    "device": [
+        {
+            "action": [
+                {
+                    "name": "On",
+                    "parameters": "0x00, 0x00, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0x00"
+                },
+                {
+                    "name": "Off",
+                    "parameters": "0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00"
+                },
+                {
+                    "name": "Blue",
+                    "parameters": "0x00, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00"
+                },
+                {
+                    "name": "Green",
+                    "parameters": "0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00"
+                },
+                {
+                    "name": "Red",
+                    "parameters": "0x00, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00"
+                },
+                {
+                    "name": "Amber",
+                    "parameters": "0x00, 0xff, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00"
+                },
+                {
+                    "name": "Purple",
+                    "parameters": "0x00, 0x80, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00"
+                }
+
+            ],
+            "path": "0x0010",
+            "domain": "C4:81:89:C8:B9:37",
+            "protocol": "bluetooth",
+            "name": "Front",
+            "group": "Light"
+        }
+
+    ]
+}
