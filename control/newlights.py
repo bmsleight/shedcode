@@ -10,7 +10,7 @@ def bluetooth_action(domain, path, parameters):
     try:
         adapter = pygatt.GATTToolBackend()
         adapter.start()
-        device = adapter.connect(domain)
+        device = adapter.connect(domain, address_type=pygatt.BLEAddressType.random)
         magic_bytes = bytearray(b'')
         for p in parameters.split(','):
             magic_bytes = magic_bytes + bytearray([int(p,16)])
